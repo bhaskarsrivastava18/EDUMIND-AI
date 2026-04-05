@@ -10,3 +10,8 @@ class ProfileCreate(BaseModel):
     strengths: str
     weaknesses: str
     daily_hours: int
+class UserLogin(BaseModel):
+    email:str
+    password:str
+ 
+    
