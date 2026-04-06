@@ -18,8 +18,6 @@ function ProfileSetup() {
     <div className="h-screen flex items-center justify-center bg-gray-100">
 
       <div className="w-[1000px] h-[600px] bg-white rounded-3xl flex overflow-hidden shadow-xl">
-
-        {/* LEFT PANEL */}
         <div className="w-1/3 bg-gradient-to-br from-blue-600 to-blue-400 text-white p-8 flex flex-col justify-between">
 
           <div>
@@ -36,7 +34,6 @@ function ProfileSetup() {
             <div className="space-y-3 text-sm">
               <p className="font-semibold">1. Basic Info</p>
               <p className="opacity-70">2. Interests</p>
-              <p className="opacity-70">3. Target Exams</p>
             </div>
           </div>
 
@@ -45,8 +42,6 @@ function ProfileSetup() {
           </p>
 
         </div>
-
-        {/* RIGHT PANEL */}
         <div className="w-2/3 p-10 flex flex-col justify-center">
 
           <h2 className="text-xl font-bold mb-2">
@@ -56,8 +51,6 @@ function ProfileSetup() {
           <p className="text-gray-500 text-sm mb-6">
             Where are you studying and what’s your current grade?
           </p>
-
-          {/* CITY */}
           <div className="mb-4">
             <label className="text-sm text-gray-600">
               Current City in India
@@ -71,8 +64,6 @@ function ProfileSetup() {
               className="w-full mt-1 p-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-
-          {/* CLASS SELECTION */}
           <div className="mb-4">
             <label className="text-sm text-gray-600">
               Current Academic Standing
@@ -114,8 +105,6 @@ function ProfileSetup() {
 
             </div>
           </div>
-
-          {/* INSTITUTE */}
           <div className="mb-6">
             <label className="text-sm text-gray-600">
               School or Coaching Institute
@@ -137,7 +126,7 @@ function ProfileSetup() {
               Back
             </button>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/interests")}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition"
             >
               Continue →
