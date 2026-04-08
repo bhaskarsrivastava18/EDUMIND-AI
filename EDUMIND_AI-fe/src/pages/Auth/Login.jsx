@@ -153,7 +153,7 @@ function Login() {
               : "Login"}
           </button>
 
-          {/* TOGGLE */}
+ 
           <p className="text-sm text-center mt-4">
             {isSignup
               ? "Already have an account?"

@@ -4,6 +4,9 @@ from database import engine, SessionLocal, Base
 from passlib.context import CryptContext
 from fastapi.middleware.cors import CORSMiddleware
 import models, schemas
+import joblib
+import numpy as np
+import os
 
 # ✅ CREATE APP FIRST
 app = FastAPI()
@@ -106,9 +109,73 @@ def save_profile(profile: schemas.ProfileCreate, db: Session = Depends(get_db)):
 
     db.add(new_profile)
     db.commit()
-
     return {"message": "Profile saved successfully"}
+# =======================
+# 📚 STUDY PLAN GENERATOR
+# =======================
+@app.post("/generate-plan")
+def generate_plan(data: dict):
+    try:
+        hours = int(data.get("hours_per_day", 4))
+        exam = data.get("exam", "General")
+        weakness = data.get("weakness", "None")
+
+        plan = []
+
+        for i in range(1, 6):  
+            tasks = [
+                f"{hours//2} hrs core study for {exam}",
+                "1 hr revision",
+                f"Practice weak area: {weakness}",
+                "Solve PYQs / Mock test"
+            ]
+
+            plan.append({
+                "day": f"Day {i}",
+                "tasks": tasks
+            })
+
+        return {"plan": plan}
+
+    except Exception as e:
+        print("ERROR:", e)
+        raise HTTPException(status_code=500, detail="Failed to generate plan")
 @app.get("/exams")
 def get_exams(db: Session = Depends(get_db)):
     exams = db.query(models.Exam).all()
     return exams
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+model = joblib.load(os.path.join(BASE_DIR, "EDUMIND_AI-ai", "model.pkl"))
+scaler = joblib.load(os.path.join(BASE_DIR, "EDUMIND_AI-ai", "scaler.pkl"))
+@app.post("/generate-strategy")
+def generate_strategy(data: dict):
+    try:
+        hours = int(data["hours"])
+        weak_score = int(data["weak_score"])
+        strong_score = int(data["strong_score"])
+        difficulty = int(data["difficulty"])
+        consistency = int(data["consistency"])
+        mock_score = int(data["mock_score"])
+
+        weakness_gap = strong_score - weak_score
+        performance_index = (mock_score + consistency * 10) / 2
+
+        features = np.array([[
+            hours, weak_score, strong_score,
+            difficulty, consistency, mock_score,
+            weakness_gap, performance_index
+        ]])
+
+        features_scaled = scaler.transform(features)
+        prediction = model.predict(features_scaled)[0]
+
+        return {
+            "weak_time": round(prediction[0], 2),
+            "strong_time": round(prediction[1], 2),
+            "revision_time": round(prediction[2], 2),
+            "type": "ML-powered strategy"
+        }
+
+    except Exception as e:
+        print("ERROR:", e)
+        raise HTTPException(status_code=500, detail="ML strategy failed")

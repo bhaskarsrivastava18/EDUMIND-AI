@@ -3,7 +3,8 @@ import Login from "./pages/Auth/Login";
 import ProfileSetup from "./pages/ProfileSetup";
 import Interests from "./pages/Interests";
 import Dashboard from "./pages/Dashboard";
-
+import Exam from "./pages/Exam";
+import StudyPlan from "./pages/Studyplan";
 function App() {
   return (
     <BrowserRouter>
@@ -13,9 +14,10 @@ function App() {
         <Route path="/profile" element={<ProfileSetup />} />
         <Route path="/interests" element={<Interests />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/exam" element={<Exam />} />
+        <Route path="/Studyplan" element={<StudyPlan />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
 export default App;

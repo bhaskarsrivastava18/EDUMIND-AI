@@ -79,7 +79,7 @@ function Dashboard() {
                 Generate your personalized study schedule.
               </p>
               <button
-                onClick={() => navigate("/study-plan")}
+                onClick={() => navigate("/Studyplan")}
                 className="mt-3 bg-blue-600 text-white px-4 py-1 rounded"
               >
                 Create Plan
@@ -96,7 +96,7 @@ function Dashboard() {
                 Browse government exams and details.
               </p>
               <button
-                onClick={() => navigate("/exams")}
+                onClick={() => navigate("/Exam")}
                 className="mt-3 bg-blue-600 text-white px-4 py-1 rounded"
               >
                 View Exams
@@ -142,7 +142,6 @@ function Dashboard() {
           {/* Roadmap */}
           <div className="bg-white p-5 rounded-xl shadow">
             <h3 className="font-semibold mb-2">Dynamic Study Roadmap</h3>
-
             <ul className="text-sm text-gray-600 space-y-2">
               <li>✔ Quantitative Aptitude</li>
               <li>✔ English Practice</li>
